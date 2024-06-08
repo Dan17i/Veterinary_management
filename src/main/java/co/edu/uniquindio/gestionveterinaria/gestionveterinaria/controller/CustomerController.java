@@ -1,5 +1,6 @@
 package co.edu.uniquindio.gestionveterinaria.gestionveterinaria.controller;
 
+import co.edu.uniquindio.gestionveterinaria.gestionveterinaria.dto.CustomerDto;
 import co.edu.uniquindio.gestionveterinaria.gestionveterinaria.factory.ModelFactory;
 import co.edu.uniquindio.gestionveterinaria.gestionveterinaria.model.Customer;
 
@@ -13,19 +14,8 @@ public class CustomerController {
 
     }
 
-    public List<Customer> getCustomerList() {
+
+    public List<CustomerDto> getCustomerList() {
         return modelFactory.getCustomerList();
-    }
-
-    public boolean createCustomer(Customer customer) {
-        return modelFactory.createCustomer(customer);
-    }
-
-    public boolean removeCustomer(Customer selectedCustomer) {
-        return modelFactory.removeCustomer(selectedCustomer);
-    }
-
-    public boolean upDateCustomer(Customer selectedCustomer, Customer customerUpdate) {
-        return modelFactory.upDateCustomer(selectedCustomer, customerUpdate);
     }
 }

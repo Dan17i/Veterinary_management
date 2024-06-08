@@ -1,29 +1,30 @@
 package co.edu.uniquindio.gestionveterinaria.gestionveterinaria.viewController;
 
 import java.net.URL;
-import java.time.LocalDate;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.gestionveterinaria.gestionveterinaria.controller.CustomerController;
+import co.edu.uniquindio.gestionveterinaria.gestionveterinaria.dto.CustomerDto;
 import co.edu.uniquindio.gestionveterinaria.gestionveterinaria.model.Customer;
-import co.edu.uniquindio.gestionveterinaria.gestionveterinaria.model.builder.CustomerBuilder;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 public class CustomerViewController {
 
     CustomerController customerController;
-    ObservableList<Customer> customerList = FXCollections.observableArrayList();
-    FilteredList<Customer> filteredCustomerList;
-    Customer selectedCustomer;
+    ObservableList<CustomerDto> customerList = FXCollections.observableArrayList();
+    CustomerDto customerSelected;
 
     @FXML
     private ResourceBundle resources;
@@ -44,25 +45,37 @@ public class CustomerViewController {
     private Button btnUpdate;
 
     @FXML
-    private TableView<Customer> tblCustomer;
+    private TableView<CustomerDto> tblCustomer;
 
     @FXML
-    private TableColumn<Customer, String> tcAddress;
+    private TableColumn<CustomerDto, String> tcAddress;
 
     @FXML
-    private TableColumn<Customer, String> tcDNI;
+    private TableColumn<CustomerDto, String> tcDNI;
 
     @FXML
-    private TableColumn<Customer, String> tcEmail;
+    private TableColumn<CustomerDto, String> tcEmail;
 
     @FXML
-    private TableColumn<Customer, String> tcName;
+    private TableColumn<CustomerDto, String> tcName;
 
     @FXML
-    private TableColumn<Customer, String> tcPhoneNumber;
+    private TableColumn<CustomerDto, String> tcPetAge;
 
     @FXML
-    private TableColumn<Customer, String> tcRegistrationDate;
+    private TableColumn<CustomerDto, String> tcPetName;
+
+    @FXML
+    private TableColumn<CustomerDto, String> tcPetRace;
+
+    @FXML
+    private TableColumn<CustomerDto, String> tcPhoneNumber;
+
+    @FXML
+    private TableColumn<CustomerDto, String> tcRegistrationDate;
+
+    @FXML
+    private TableColumn<CustomerDto, String> tcSpecies;
 
     @FXML
     private TextField txtAddress;
@@ -80,7 +93,19 @@ public class CustomerViewController {
     private TextField txtName;
 
     @FXML
+    private TextField txtPetAge;
+
+    @FXML
+    private TextField txtPetName;
+
+    @FXML
     private TextField txtPhoneNumber;
+
+    @FXML
+    private TextField txtRace;
+
+    @FXML
+    private TextField txtSpecies;
 
     @FXML
     void onAdd(ActionEvent event) {
@@ -97,21 +122,16 @@ public class CustomerViewController {
     }
 
 
+
     @FXML
     void onRemove(ActionEvent event) {
-        removeCustomer(selectedCustomer);
 
     }
-
-
 
     @FXML
     void onUpdate(ActionEvent event) {
-        updateCustomer();
 
     }
-
-
 
     @FXML
     void initialize() {
@@ -119,188 +139,119 @@ public class CustomerViewController {
         initView();
         setupFilter();
 
-
     }
-
 
     private void initView() {
         initDataBinding();
         getCustomerList();
         tblCustomer.getItems().clear();
-        tblCustomer.setItems(filteredCustomerList);
+        tblCustomer.setItems(customerList);
         listenerSelection();
     }
 
-
     private void initDataBinding() {
-        tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        tcDNI.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDni()));
-        tcEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
-        tcPhoneNumber.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhoneNumber()));
-        tcAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
-        tcRegistrationDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRegistrationDate().toString()));
+        tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().name()));
+        tcAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().address()));
+        tcDNI.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().dni()));
+        tcPhoneNumber.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().phoneNumber()));
+        tcEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().email()));
+        tcPetName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().petName()));
+        tcPetAge.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().petAge())));
+        tcPetRace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().race()));
+        tcSpecies.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().species()));
+        tcRegistrationDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().registrationDate()));
+
     }
 
     private void getCustomerList() {
         customerList.addAll(customerController.getCustomerList());
-        filteredCustomerList = new FilteredList<>(customerList, p -> true);
     }
 
     private void setupFilter() {
         txtFilter.textProperty().addListener((observable, oldValue, newValue) -> {
-            List<Customer> originalList = customerController.getCustomerList();
-            ObservableList<Customer> filteredList = filterList(originalList, newValue);
+            List<CustomerDto> originalList = customerController.getCustomerList();
+            ObservableList<CustomerDto> filteredList = filteredList(originalList, newValue);
             tblCustomer.setItems(filteredList);
         });
     }
 
-    private boolean searchFindsCustomer(Customer customer, String searchText) {
-        return (customer.getDni().toLowerCase().contains(searchText.toLowerCase())) ||
-                (customer.getEmail().toLowerCase().contains(searchText.toLowerCase()));
-    }
-
-    private ObservableList<Customer> filterList(List<Customer> list, String searchText) {
-        List<Customer> filteredList = new ArrayList<>();
-        for (Customer customer : list) {
-            if (searchFindsCustomer(customer, searchText)) filteredList.add(customer);
+    private ObservableList<CustomerDto> filteredList(List<CustomerDto> originalList, String searchText) {
+        List<CustomerDto> filteredList = new ArrayList<>();
+        for (CustomerDto customerDto : originalList) {
+            if (searchFindsCustomer(customerDto, searchText))
+                filteredList.add(customerDto);
         }
+
         return FXCollections.observableList(filteredList);
     }
 
-
-
     private void listenerSelection() {
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            selectedCustomer = newSelection;
-            showInformationCustomer(selectedCustomer);
+            customerSelected = newSelection;
+            showInformation(customerSelected);
         });
     }
 
-    private void showInformationCustomer(Customer selectedCustomer) {
-        if (selectedCustomer != null) {
-            txtName.setText(selectedCustomer.getName());
-            txtDNI.setText(selectedCustomer.getDni());
-            txtEmail.setText(selectedCustomer.getEmail());
-            txtPhoneNumber.setText(selectedCustomer.getPhoneNumber());
-            txtAddress.setText(selectedCustomer.getAddress());
-
+    private void showInformation(CustomerDto customerSelected) {
+        if (customerSelected != null) {
+            txtAddress.setText(customerSelected.address());
+            txtName.setText(customerSelected.name());
+            txtPhoneNumber.setText(customerSelected.phoneNumber());
+            txtDNI.setText(customerSelected.dni());
+            txtEmail.setText(customerSelected.email());
+            txtPetName.setText(customerSelected.petName());
+            txtPetAge.setText(String.valueOf(customerSelected.petAge()));
+            txtRace.setText(customerSelected.race());
+            txtSpecies.setText(customerSelected.species());
         }
+    }
+
+    private boolean searchFindsCustomer(CustomerDto customerDto, String searchText) {
+        return (customerDto.dni().toLowerCase().contains(searchText.toLowerCase()));
+
     }
 
     private void deselectCustomer() {
         tblCustomer.getSelectionModel().clearSelection();
-        selectedCustomer = null;
+        customerSelected = null;
     }
 
     private void addCustomer() {
         if (validateForm()) {
-            Customer customer = buildDataCustomer();
-            if (customerController.createCustomer(customer)) {
-                customerList.add(customer);
-                showMessage("Notificación Cliente", "Cliente creado",
-                        "El cliente ha sido creado con éxito", Alert.AlertType.INFORMATION);
-                clearData();
-                deselectCustomer();
-            } else {
-                showMessage("Error", "Creación fallida",
-                        "No se pudo crear el cliente.", Alert.AlertType.ERROR);
-            }
-        } else {
-            showMessage("Error", "Datos invalidos",
-                    "Por favor, ingrese datos validos", Alert.AlertType.ERROR);
-        }
-    }
 
-    private void removeCustomer(Customer selectedCustomer) {
-        if(selectedCustomer!=null){
-            if(showConfirmationMessage("¿Está seguro que desea eliminar este cliente?")){
-                if(customerController.removeCustomer(selectedCustomer)){
-                    int index = customerList.indexOf(selectedCustomer);
-                    customerList.remove(index);
-                    showMessage("Notificación", "Cliente eliminado", "El cliente ha sido eliminado con éxito", Alert.AlertType.INFORMATION);
-                    clearData();
-                    deselectCustomer();
-                }else{
-                    showMessage("Error", "Eliminación fallida", "No se pudo eliminar el cliente.", Alert.AlertType.ERROR);
-                }
-            }
-        }else{
-            showMessage("Advertencia", "Selección requerida", "Debe seleccionar un cliente para eliminar.", Alert.AlertType.WARNING);
-        }
-    }
-
-    private void updateCustomer() {
-        if (selectedCustomer != null) {
-            Customer customerUpdate = buildDataCustomer();
-            boolean result = customerController.upDateCustomer(selectedCustomer, customerUpdate);
-            if (result) {
-                updateClientList(selectedCustomer, customerUpdate);
-                showMessage("Notificación Cliente", "Cliente actualizado",
-                        "El cliente ha sido actualizado con éxito", Alert.AlertType.INFORMATION);
-                clearData();
-            } else {
-                showMessage("Error", "Actualización fallida",
-                        "No se pudo actualizar el cliente.", Alert.AlertType.ERROR);
-            }
-        } else {
-            showMessage("Error", "Selección requerida",
-                    "Debe seleccionar un cliente para actualizar.", Alert.AlertType.WARNING);
-        }
-
-    }
-
-    private void updateClientList(Customer selectedCustomer, Customer customerUpdate) {
-        int index = customerList.indexOf(selectedCustomer);
-        if (index != -1) {
-            customerList.set(index, customerUpdate);
         }
     }
 
     private void clearData() {
-        txtName.setText("");
-        txtDNI.setText("");
-        txtEmail.setText("");
         txtPhoneNumber.setText("");
+        txtName.setText("");
+        txtSpecies.setText("");
+        txtRace.setText("");
+        txtPetAge.setText("");
+        txtDNI.setText("");
+        txtSpecies.setText("");
+        txtEmail.setText("");
         txtAddress.setText("");
+        txtPetName.setText("");
+        txtFilter.setText("");
+
     }
 
     private boolean validateForm() {
-        return !txtName.getText().isEmpty()
+        return !txtAddress.getText().isEmpty()
                 && !txtDNI.getText().isEmpty()
                 && !txtEmail.getText().isEmpty()
+                && !txtSpecies.getText().isEmpty()
+                && !txtPetName.getText().isEmpty()
+                && !txtPetAge.getText().isEmpty()
+                && !txtRace.getText().isEmpty()
+                && !txtName.getText().isEmpty()
                 && !txtPhoneNumber.getText().isEmpty()
-                && !txtAddress.getText().isEmpty();
+                && !txtSpecies.getText().isEmpty();
     }
-
-    private Customer buildDataCustomer() {
-        return new CustomerBuilder()
-                .setName(txtName.getText())
-                .setDni(txtDNI.getText())
-                .setAddress(txtAddress.getText())
-                .setEmail(txtEmail.getText())
-                .setPhoneNumber(txtPhoneNumber.getText())
-                .setRegistrationDate(LocalDate.now())
-                .build();
-    }
-
-    private boolean showConfirmationMessage(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText(null);
-        alert.setTitle("Confirmación");
-        alert.setContentText(message);
-        Optional<ButtonType> action = alert.showAndWait();
-        if (action.get() == ButtonType.OK) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
-        Alert aler = new Alert(alertType);
-        aler.setTitle(title);
-        aler.setHeaderText(header);
-        aler.setContentText(content);
-        aler.showAndWait();
+    private void refreshTables() {
+        customerList.clear();
+        tblCustomer.setItems(customerList);
+        getCustomerList();
     }
 }
