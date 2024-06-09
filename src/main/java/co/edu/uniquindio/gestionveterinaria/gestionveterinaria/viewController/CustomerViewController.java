@@ -279,18 +279,24 @@ public class CustomerViewController {
             Customer newCustomer = buildDataCustomer();
             boolean success = customerController.addCustomer(newCustomer);
             if (success) {
-                showMessage("Éxito", "Cliente agregado", "El cliente ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
+                showMessage("Notificación Usuario", "Cliente agregado", "El cliente ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
                 clearData();
                 refreshTables();
             } else {
-                showMessage("Error", "Cliente no agregado", "Error al agregar al cliente", Alert.AlertType.ERROR);
+                showMessage("Notificación Usuario", "Cliente no agregado", "Error al agregar al cliente", Alert.AlertType.ERROR);
             }
         } else {
-            showMessage("Error", "Datos inválidos", "Por favor complete todos los campos", Alert.AlertType.WARNING);
+            showMessage("Notificación Usuario", "Datos inválidos", "Por favor complete todos los campos", Alert.AlertType.WARNING);
         }
     }
 
     private void deleteCustomer() {
+        /*
+         * Elimina el cliente seleccionado del sistema.
+         * Si hay un cliente seleccionado en la tabla, se muestra un cuadro de diálogo de confirmación
+         * para confirmar la eliminación. Si el usuario confirma la eliminación, el cliente seleccionado
+         * se elimina del sistema utilizando el CustomerController.
+         */
         if(customerSelected !=null) {
             boolean confirmation = showConfirmationMessage("¿Está seguro de eliminar el usuario seleccionado?");
             if (confirmation) {
@@ -387,6 +393,11 @@ public class CustomerViewController {
     }
 
     private boolean showConfirmationMessage(String message){
+        /*
+         * Muestra un cuadro de diálogo de confirmación con el mensaje proporcionado.
+         * @param message El mensaje a mostrar en el cuadro de diálogo de confirmación.
+         * @return true si el usuario elige "Aceptar", false si elige "Cancelar".
+         */
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setTitle("Confirmación");
