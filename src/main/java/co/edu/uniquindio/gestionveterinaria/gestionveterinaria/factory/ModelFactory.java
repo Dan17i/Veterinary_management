@@ -181,16 +181,29 @@ public class ModelFactory {
     }
 
 
+    /*
+     * Método que obtiene la lista de clientes y la convierte en una lista de CustomerDto.
+     * @return Lista de CustomerDto con los datos de los clientes.
+     */
     public List<CustomerDto> getCustomerList() {
+        // Obtiene la lista de clientes desde el objeto veterinary
         List<Customer> customerList = veterinary.getCustomerList();
+        // Lista que almacenará los CustomerDto
         List<CustomerDto> customerDtoList = new ArrayList<>();
 
+        // Itera sobre la lista de clientes y convierte cada uno en CustomerDto
         for (Customer customer: customerList) {
             customerDtoList.add(buildCustomerDto(customer));
         }
+        // Retorna la lista de CustomerDto
         return customerDtoList;
     }
 
+    /*
+     * Método que construye un objeto CustomerDto a partir de un objeto Customer.
+     * @param customer El objeto Customer a convertir.
+     * @return Un objeto CustomerDto con los datos del Customer proporcionado.
+     */
     private CustomerDto buildCustomerDto(Customer customer) {
         return new CustomerDto(
                 customer.getName(),
@@ -202,6 +215,16 @@ public class ModelFactory {
                 customer.getPet().getRace(),
                 customer.getPet().getAge(),
                 customer.getPet().getSpecies(),
-                customer.getRegistrationDate().toString());
+                customer.getRegistrationDate().toString()
+        );
+    }
+
+
+    public boolean addCustomer(Customer newCustomer) {
+        return veterinary.addCustomer(newCustomer);
+    }
+
+    public boolean deleteCustomer(Customer customer) {
+        return veterinary.deleteCustomer(customer);
     }
 }

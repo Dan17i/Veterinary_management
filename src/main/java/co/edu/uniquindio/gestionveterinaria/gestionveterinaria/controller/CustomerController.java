@@ -18,4 +18,12 @@ public class CustomerController {
     public List<CustomerDto> getCustomerList() {
         return modelFactory.getCustomerList();
     }
+
+    public boolean addCustomer(Customer newCustomer) {
+        return modelFactory.addCustomer(newCustomer);
+    }
+
+    public boolean deleteCustomer(Customer customer) {
+        return modelFactory.deleteCustomer(customer);
+    }
 }

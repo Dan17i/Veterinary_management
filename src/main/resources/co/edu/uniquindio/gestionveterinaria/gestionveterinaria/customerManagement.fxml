@@ -10,56 +10,60 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="1008.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestionveterinaria.gestionveterinaria.viewController.CustomerViewController">
-   <children>
-      <Separator layoutX="14.0" layoutY="53.0" prefHeight="3.0" prefWidth="989.0" />
-      <Label layoutX="432.0" layoutY="14.0" prefHeight="39.0" prefWidth="202.0" text="Gestión del Cliente" textFill="#d6950f">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="59.0" layoutY="72.0" text="Nombre:" />
-      <Label layoutX="391.0" layoutY="72.0" text="DNI:" />
-      <Label layoutX="684.0" layoutY="72.0" text="Dirección:" />
-      <Label layoutX="387.0" layoutY="119.0" text="Email:" />
-      <Label layoutX="59.0" layoutY="119.0" text="Teléfono:" />
-      <TextField fx:id="txtName" layoutX="159.0" layoutY="68.0" />
-      <TextField fx:id="txtAddress" layoutX="786.0" layoutY="68.0" />
-      <TextField fx:id="txtPhoneNumber" layoutX="160.0" layoutY="115.0" />
-      <TextField fx:id="txtDNI" layoutX="470.0" layoutY="68.0" />
-      <TextField fx:id="txtEmail" layoutX="470.0" layoutY="115.0" />
-      <Button fx:id="btnAdd" layoutX="509.0" layoutY="277.0" mnemonicParsing="false" onAction="#onAdd" text="Agregar" />
-      <Button fx:id="btnNew" layoutX="310.0" layoutY="277.0" mnemonicParsing="false" onAction="#onNew" text="limpiar" />
-      <Button fx:id="btnUpdate" layoutX="705.0" layoutY="277.0" mnemonicParsing="false" onAction="#onUpdate" text="Actualizar" />
-      <TextField fx:id="txtFilter" alignment="TOP_CENTER" layoutX="159.0" layoutY="318.0" prefHeight="25.0" prefWidth="747.0" promptText="Filtrar">
-         <effect>
-            <Glow level="0.0" />
-         </effect>
-      </TextField>
-      <TableView fx:id="tblCustomer" layoutX="53.0" layoutY="373.0" prefHeight="156.0" prefWidth="930.0">
-         <columns>
-            <TableColumn fx:id="tcName" prefWidth="102.66665649414062" text="Nombre" />
-            <TableColumn fx:id="tcDNI" prefWidth="98.66668701171875" text="DNI" />
-            <TableColumn fx:id="tcAddress" prefWidth="102.0" text="Dirección" />
-            <TableColumn fx:id="tcEmail" prefWidth="115.3333740234375" text="Email" />
-            <TableColumn fx:id="tcPhoneNumber" prefWidth="91.3333740234375" text="Teléfono" />
-            <TableColumn fx:id="tcPetName" prefWidth="106.666748046875" text="NombreMascota" />
-            <TableColumn fx:id="tcPetRace" prefWidth="75.0" text="Raza" />
-            <TableColumn fx:id="tcPetAge" prefWidth="84.66668701171875" text="EdadMascota" />
-            <TableColumn fx:id="tcSpecies" prefWidth="75.0" text="Especie" />
-            <TableColumn fx:id="tcRegistrationDate" prefWidth="73.3333740234375" text="Registro" />
-         </columns>
-      </TableView>
-      <Button fx:id="btbRemove" layoutX="503.0" layoutY="544.0" mnemonicParsing="false" onAction="#onRemove" text="Eliminar" />
-      <Separator layoutX="11.0" layoutY="265.0" prefHeight="3.0" prefWidth="989.0" />
-      <Label layoutX="60.0" layoutY="166.0" text="NombreMascota:" />
-      <TextField fx:id="txtPetName" layoutX="160.0" layoutY="162.0" />
-      <Label layoutX="387.0" layoutY="166.0" text="Raza: " />
-      <TextField fx:id="txtRace" layoutX="470.0" layoutY="162.0" />
-      <Label layoutX="684.0" layoutY="166.0" text="EdadMascota:" />
-      <TextField fx:id="txtPetAge" layoutX="786.0" layoutY="162.0" />
-      <Separator layoutX="14.0" layoutY="151.0" prefHeight="3.0" prefWidth="989.0" />
-      <Label layoutX="60.0" layoutY="211.0" text="Especie:" />
-      <TextField fx:id="txtSpecies" layoutX="160.0" layoutY="207.0" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0"
+            prefWidth="1008.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.gestionveterinaria.gestionveterinaria.viewController.CustomerViewController">
+    <children>
+        <Separator layoutX="14.0" layoutY="53.0" prefHeight="3.0" prefWidth="989.0"/>
+        <Label layoutX="432.0" layoutY="14.0" prefHeight="39.0" prefWidth="202.0" text="Gestión del Cliente"
+               textFill="#d6950f">
+            <font>
+                <Font name="Cambria" size="24.0"/>
+            </font>
+        </Label>
+        <Label layoutX="59.0" layoutY="72.0" text="Nombre:"/>
+        <Label layoutX="391.0" layoutY="72.0" text="DNI:"/>
+        <Label layoutX="684.0" layoutY="72.0" text="Dirección:"/>
+        <Label layoutX="387.0" layoutY="119.0" text="Email:"/>
+        <Label layoutX="59.0" layoutY="119.0" text="Teléfono:"/>
+        <TextField fx:id="txtName" layoutX="159.0" layoutY="68.0"/>
+        <TextField fx:id="txtAddress" layoutX="786.0" layoutY="68.0"/>
+        <TextField fx:id="txtPhoneNumber" layoutX="160.0" layoutY="115.0"/>
+        <TextField fx:id="txtDNI" layoutX="470.0" layoutY="68.0"/>
+        <TextField fx:id="txtEmail" layoutX="470.0" layoutY="115.0"/>
+        <Button fx:id="btnAdd" layoutX="509.0" layoutY="277.0" mnemonicParsing="false" onAction="#onAdd" text="Agregar" style="-fx-background-color: #d6950f; -fx-text-fill: white;"/>
+        <Button fx:id="btnNew" layoutX="310.0" layoutY="277.0" mnemonicParsing="false" onAction="#onNew" text="limpiar" style="-fx-background-color: #d6950f; -fx-text-fill: white;"/>
+        <Button fx:id="btnUpdate" layoutX="705.0" layoutY="277.0" mnemonicParsing="false" onAction="#onUpdate" text="Actualizar" style="-fx-background-color: #d6950f; -fx-text-fill: white;"/>
+        <TextField fx:id="txtFilter" alignment="TOP_CENTER" layoutX="159.0" layoutY="318.0" prefHeight="25.0" prefWidth="747.0" promptText="Filtrar">
+            <effect>
+                <Glow level="0.0"/>
+            </effect>
+        </TextField>
+        <TableView fx:id="tblCustomer" layoutX="53.0" layoutY="373.0" prefHeight="156.0" prefWidth="930.0">
+            <columns>
+                <TableColumn fx:id="tcName" prefWidth="102.66665649414062" text="Nombre"/>
+
+                <TableColumn fx:id="tcDNI" prefWidth="98.66668701171875" text="DNI" />
+                <TableColumn fx:id="tcAddress" prefWidth="102.0" text="Dirección" />
+                <TableColumn fx:id="tcEmail" prefWidth="115.3333740234375" text="Email"/>
+                <TableColumn fx:id="tcPhoneNumber" prefWidth="91.3333740234375" text="Teléfono"/>
+                <TableColumn fx:id="tcPetName" prefWidth="106.666748046875" text="NombreMascota"/>
+                <TableColumn fx:id="tcPetRace" prefWidth="75.0" text="Raza"/>
+                <TableColumn fx:id="tcPetAge" prefWidth="84.66668701171875" text="EdadMascota"/>
+                <TableColumn fx:id="tcSpecies" prefWidth="75.0" text="Especie"/>
+                <TableColumn fx:id="tcRegistrationDate" prefWidth="73.3333740234375" text="Registro"/>
+            </columns>
+        </TableView>
+        <Button fx:id="btbRemove" layoutX="503.0" layoutY="544.0" mnemonicParsing="false" onAction="#onRemove" text="Eliminar" style="-fx-background-color: #d6950f; -fx-text-fill: white;"/>
+        <Separator layoutX="11.0" layoutY="265.0" prefHeight="3.0" prefWidth="989.0"/>
+        <Label layoutX="60.0" layoutY="166.0" text="NombreMascota:"/>
+        <TextField fx:id="txtPetName" layoutX="160.0" layoutY="162.0"/>
+        <Label layoutX="387.0" layoutY="166.0" text="Raza: "/>
+        <TextField fx:id="txtRace" layoutX="470.0" layoutY="162.0"/>
+        <Label layoutX="684.0" layoutY="166.0" text="EdadMascota:"/>
+        <TextField fx:id="txtPetAge" layoutX="786.0" layoutY="162.0"/>
+        <Separator layoutX="14.0" layoutY="151.0" prefHeight="3.0" prefWidth="989.0"/>
+        <Label layoutX="60.0" layoutY="211.0" text="Especie:"/>
+        <TextField fx:id="txtSpecies" layoutX="160.0" layoutY="207.0"/>
+    </children>
 </AnchorPane>

@@ -17,4 +17,28 @@ public class Veterinary {
     }
 
 
+    public boolean addCustomer(Customer newCustomer) {
+        if (newCustomer != null && !customerExists(newCustomer.getDni())){
+            customerList.add(newCustomer);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean customerExists(String dni) {
+        for (Customer customer : customerList) {
+            if (customer.getDni().equalsIgnoreCase(dni)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteCustomer(Customer customerSelected) {
+        if (customerSelected != null) {
+            return customerList.removeIf(customerDto -> customerDto.getDni().equals(customerSelected.getDni()));
+        }
+        return false;
+    }
+
 }
