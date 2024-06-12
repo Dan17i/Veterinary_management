@@ -36,9 +36,22 @@ public class Veterinary {
 
     public boolean deleteCustomer(Customer customerSelected) {
         if (customerSelected != null) {
-            return customerList.removeIf(customerDto -> customerDto.getDni().equals(customerSelected.getDni()));
+            return customerList.removeIf(customer -> customer.getDni().equals(customerSelected.getDni()));
         }
         return false;
     }
+
+
+    public boolean updateCustomer(Customer customerSelected, Customer customerUpdate) {
+        for (int i = 0; i < customerList.size(); i++) {
+            Customer currentCustomer = customerList.get(i);
+            if (currentCustomer.getDni().equals(customerSelected.getDni())) {
+                customerList.set(i, customerUpdate);
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

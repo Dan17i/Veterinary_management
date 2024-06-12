@@ -152,8 +152,11 @@ public class CustomerViewController {
 
     @FXML
     void onUpdate(ActionEvent event) {
+        updateCustomer();
 
     }
+
+
 
     @FXML
     void initialize() {
@@ -298,7 +301,7 @@ public class CustomerViewController {
          * se elimina del sistema utilizando el CustomerController.
          */
         if(customerSelected !=null) {
-            boolean confirmation = showConfirmationMessage("¿Está seguro de eliminar el usuario seleccionado?");
+            boolean confirmation = showConfirmationMessage("¿ Está seguro de eliminar el usuario" +" "+ txtName.getText()+" ?");
             if (confirmation) {
                 Customer customer = buildDataCustomer();
                 boolean success = customerController.deleteCustomer(customer);
@@ -314,6 +317,32 @@ public class CustomerViewController {
         }else{
             showMessage("Notificación Usuario", "Ningún Usuario Seleccionado",
                     "Debe seleccionar un usuario para eliminar", Alert.AlertType.WARNING);
+        }
+    }
+
+    private void updateCustomer() {
+        if (customerSelected != null) {
+           Customer customer = customerSelected.toCustomer();
+           Customer customerUpdate = buildDataCustomer();
+           boolean success = customerController.updateCustomer(customer, customerUpdate);
+           if (success) {
+               int index = customerList.indexOf(customerSelected);
+               if (index != -1) {
+                   CustomerDto updateDto = CustomerDto.fromCustomer(customerUpdate);
+                   customerList.set(index, updateDto);
+                   refreshTables();
+               }
+               showMessage("Notificación Cliente", "Cliente actualizado",
+                       "El cliente ha sido actualizado con éxito", Alert.AlertType.INFORMATION);
+               clearData();
+           } else {
+               showMessage("Error", "Actualización fallida",
+                       "No se pudo actualizar el cliente.", Alert.AlertType.ERROR);
+           }
+
+        } else {
+            showMessage("Error", "Selección requerida",
+                    "Debe seleccionar un cliente para actualizar.", Alert.AlertType.WARNING);
         }
     }
 

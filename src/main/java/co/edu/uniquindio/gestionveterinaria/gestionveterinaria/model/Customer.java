@@ -1,6 +1,7 @@
 package co.edu.uniquindio.gestionveterinaria.gestionveterinaria.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Customer {
     private String name;
@@ -52,4 +53,5 @@ public class Customer {
     public LocalDate getRegistrationDate() {
         return registrationDate;
     }
+
 }

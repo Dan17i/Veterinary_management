@@ -227,4 +227,8 @@ public class ModelFactory {
     public boolean deleteCustomer(Customer customer) {
         return veterinary.deleteCustomer(customer);
     }
+
+    public boolean updateCustomer(Customer customer, Customer customerUpdate) {
+        return veterinary.updateCustomer(customer, customerUpdate);
+    }
 }

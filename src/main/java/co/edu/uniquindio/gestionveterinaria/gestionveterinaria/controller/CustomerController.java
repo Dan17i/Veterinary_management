@@ -26,4 +26,8 @@ public class CustomerController {
     public boolean deleteCustomer(Customer customer) {
         return modelFactory.deleteCustomer(customer);
     }
+
+    public boolean updateCustomer(Customer customer, Customer customerUpdate) {
+        return modelFactory.updateCustomer(customer, customerUpdate);
+    }
 }
