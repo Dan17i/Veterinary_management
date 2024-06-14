@@ -282,7 +282,7 @@ public class CustomerViewController {
             Customer newCustomer = buildDataCustomer();
             boolean success = customerController.addCustomer(newCustomer);
             if (success) {
-                showMessage("Notificación Usuario", "Cliente agregado", "El cliente ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
+                showMessage("Notificación Usuario", "Cliente agregado", "El cliente" +" "+ txtName.getText()+" " + "ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
                 clearData();
                 refreshTables();
             } else {
