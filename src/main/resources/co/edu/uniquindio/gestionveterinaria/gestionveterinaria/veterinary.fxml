@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="584.0" prefWidth="1008.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestionveterinaria.gestionveterinaria.viewController.VeterinaryViewController">
   <children>
-    <TabPane layoutY="-3.0" prefHeight="610.0" prefWidth="1008.0" tabClosingPolicy="UNAVAILABLE">
+    <TabPane layoutY="-3.0" prefHeight="610.0" prefWidth="1008.0" tabClosingPolicy="UNAVAILABLE" >
       <tabs>
         <Tab text="Gestión Cliente">
           <content>
@@ -18,22 +18,17 @@
             </VBox>
           </content>
         </Tab>
+        <Tab text="Gestión Cita" >
+          <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="1008.0" />
+          </content>
+        </Tab>
         <Tab text="Gestión Mascota">
           <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="1008.0" />
           </content>
         </Tab>
-        <Tab text="Gestión Cita">
-          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="1008.0" />
-          </content>
-        </Tab>
         <Tab text="Gestión Servicio">
-          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="1008.0" />
-          </content>
-        </Tab>
-        <Tab text="Gestión Veterinarios">
           <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="1008.0" />
           </content>
